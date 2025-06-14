@@ -1,103 +1,244 @@
-import Image from "next/image";
+"use client"
 
-export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+import { useState } from "react"
+import { Button } from "@/components/ui/button"
+import { Progress } from "@/components/ui/progress"
+import { Badge } from "@/components/ui/badge"
+import { Sparkles, Zap, Shield, ArrowRight } from "lucide-react"
+import CharacterInfoStep from "@/components/character-info-step"
+import VisualDesignStep from "@/components/visual-design-step"
+import PoseExpressionStep from "@/components/pose-expression-step"
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+export interface CharacterData {
+  // Step 1: Character Info
+  name: string
+  characterType: string
+  gender: string
+  age: string
+
+  // Step 2: Visual Design
+  artStyle: string
+  hairStyle: string
+  eyeColor: string
+  clothingStyle: string
+
+  // Step 3: Pose & Expression
+  pose: string
+  facialExpression: string
+  background: string
+
+  // Generated data
+  generatedImage?: string
+  prompt?: string
+  metadata?: any
+}
+
+const steps = [
+  { id: 1, title: "Character Info", description: "Basic character details" },
+  { id: 2, title: "Visual Design", description: "Appearance and style" },
+  { id: 3, title: "Pose & Expression", description: "Pose and background" },
+  { id: 4, title: "IP Registration", description: "Mint your character" },
+]
+
+export default function CharacterForge() {
+  const [currentStep, setCurrentStep] = useState(1)
+  const [characterData, setCharacterData] = useState<CharacterData>({
+    name: "",
+    characterType: "",
+    gender: "",
+    age: "",
+    artStyle: "",
+    hairStyle: "",
+    eyeColor: "",
+    clothingStyle: "",
+    pose: "",
+    facialExpression: "",
+    background: "",
+  })
+
+  const updateCharacterData = (data: Partial<CharacterData>) => {
+    setCharacterData((prev) => ({ ...prev, ...data }))
+  }
+
+  const nextStep = () => {
+    if (currentStep < 4) {
+      setCurrentStep(currentStep + 1)
+    }
+  }
+
+  const prevStep = () => {
+    if (currentStep > 1) {
+      setCurrentStep(currentStep - 1)
+    }
+  }
+
+  const progress = (currentStep / 4) * 100
+
+  if (currentStep === 1) {
+    return (
+      <div className="min-h-screen bg-black">
+        <div className="container mx-auto px-4 py-12">
+          {/* Header */}
+          <div className="text-center mb-16">
+            <div className="flex items-center justify-center gap-3 mb-6">
+              <Sparkles className="h-10 w-10 text-purple-400" />
+              <h1 className="text-5xl font-bold text-white">CharacterForge</h1>
+            </div>
+            <p className="text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed">
+              Create unique anime-style game characters with AI and secure them as IP on-chain
+            </p>
+          </div>
+
+          {/* Main CTA Section */}
+          <div className="max-w-4xl mx-auto mb-16">
+            <div className="bg-gray-900 rounded-2xl border border-gray-800 p-8 text-center">
+              <h2 className="text-3xl font-bold text-white mb-4">From Idea to IP in Minutes</h2>
+              <p className="text-gray-400 mb-8 text-lg">
+                No design skills needed. Just describe your character and we'll generate it for you.
+              </p>
+
+              <Button
+                onClick={nextStep}
+                size="lg"
+                className="bg-purple-600 hover:bg-purple-700 text-white px-12 py-4 text-lg rounded-xl"
+              >
+                Start Creating
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </Button>
+
+              <p className="text-sm text-gray-500 mt-4">Free to try • No credit card required</p>
+            </div>
+          </div>
+
+          {/* Simple Features Grid */}
+          <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+            <div className="text-center">
+              <div className="bg-gray-900 rounded-xl p-6 border border-gray-800">
+                <Zap className="h-8 w-8 text-blue-400 mx-auto mb-4" />
+                <h3 className="text-white font-semibold mb-2">AI-Powered Generation</h3>
+                <p className="text-gray-400 text-sm">
+                  Describe your character in plain English and watch it come to life
+                </p>
+              </div>
+            </div>
+
+            <div className="text-center">
+              <div className="bg-gray-900 rounded-xl p-6 border border-gray-800">
+                <Sparkles className="h-8 w-8 text-purple-400 mx-auto mb-4" />
+                <h3 className="text-white font-semibold mb-2">Anime Style Focus</h3>
+                <p className="text-gray-400 text-sm">Specialized in creating high-quality anime and game characters</p>
+              </div>
+            </div>
+
+            <div className="text-center">
+              <div className="bg-gray-900 rounded-xl p-6 border border-gray-800">
+                <Shield className="h-8 w-8 text-green-400 mx-auto mb-4" />
+                <h3 className="text-white font-semibold mb-2">IP Protection</h3>
+                <p className="text-gray-400 text-sm">Register your characters as intellectual property on-chain</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Simple Process Steps */}
+          <div className="max-w-3xl mx-auto mt-16">
+            <h3 className="text-2xl font-bold text-white text-center mb-8">How it works</h3>
+            <div className="space-y-4">
+              <div className="flex items-center gap-4 bg-gray-900 rounded-lg p-4 border border-gray-800">
+                <div className="bg-purple-600 text-white rounded-full w-8 h-8 flex items-center justify-center font-semibold">
+                  1
+                </div>
+                <div>
+                  <h4 className="text-white font-medium">Describe Your Character</h4>
+                  <p className="text-gray-400 text-sm">Fill out basic info like type, style, and appearance</p>
+                </div>
+              </div>
+              <div className="flex items-center gap-4 bg-gray-900 rounded-lg p-4 border border-gray-800">
+                <div className="bg-blue-600 text-white rounded-full w-8 h-8 flex items-center justify-center font-semibold">
+                  2
+                </div>
+                <div>
+                  <h4 className="text-white font-medium">AI Generates Your Character</h4>
+                  <p className="text-gray-400 text-sm">Our AI creates a unique anime-style character image</p>
+                </div>
+              </div>
+              <div className="flex items-center gap-4 bg-gray-900 rounded-lg p-4 border border-gray-800">
+                <div className="bg-green-600 text-white rounded-full w-8 h-8 flex items-center justify-center font-semibold">
+                  3
+                </div>
+                <div>
+                  <h4 className="text-white font-medium">Register as IP</h4>
+                  <p className="text-gray-400 text-sm">Secure ownership of your character on Story Protocol</p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+      </div>
+    )
+  }
+
+  // Update the main app background
+  return (
+    <div className="min-h-screen bg-black">
+      <div className="container mx-auto px-4 py-8">
+        {/* Header */}
+        <div className="flex items-center justify-between mb-8">
+          <div className="flex items-center gap-2">
+            <Sparkles className="h-6 w-6 text-yellow-400" />
+            <h1 className="text-2xl font-bold text-white">CharacterForge</h1>
+          </div>
+          <Badge variant="secondary" className="bg-white/20 text-white">
+            Step {currentStep} of 4
+          </Badge>
+        </div>
+
+        {/* Progress */}
+        <div className="mb-8">
+          <div className="flex justify-between items-center mb-2">
+            {steps.map((step) => (
+              <div key={step.id} className="flex items-center">
+                <div
+                  className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium ${
+                    currentStep >= step.id ? "bg-purple-600 text-white" : "bg-white/20 text-gray-400"
+                  }`}
+                >
+                  {step.id}
+                </div>
+                <div className="ml-2 hidden sm:block">
+                  <p className={`text-sm font-medium ${currentStep >= step.id ? "text-white" : "text-gray-400"}`}>
+                    {step.title}
+                  </p>
+                  <p className="text-xs text-gray-400">{step.description}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+          <Progress value={progress} className="h-2" />
+        </div>
+
+        {/* Step Content */}
+        <div className="max-w-2xl mx-auto">
+          {currentStep === 2 && (
+            <CharacterInfoStep
+              data={characterData}
+              onUpdate={updateCharacterData}
+              onNext={nextStep}
+              onPrev={prevStep}
+            />
+          )}
+          {currentStep === 3 && (
+            <VisualDesignStep data={characterData} onUpdate={updateCharacterData} onNext={nextStep} onPrev={prevStep} />
+          )}
+          {currentStep === 4 && (
+            <PoseExpressionStep
+              data={characterData}
+              onUpdate={updateCharacterData}
+              onNext={nextStep}
+              onPrev={prevStep}
+            />
+          )}
+        </div>
+      </div>
     </div>
-  );
+  )
 }
