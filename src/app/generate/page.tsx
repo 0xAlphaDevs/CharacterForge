@@ -137,7 +137,7 @@ export default function CharacterForge() {
       ) : (
         <div className="min-h-screen bg-black px-4">
           <div className="flex flex-col items-center justify-center h-full text-center pt-48">
-            <Image src="/logo.png" alt="logo" width={200} height={200} className="mb-4" />
+            <Image src="/logo.png" alt="logo" width={150} height={150} className="mb-4" />
             <p className="text-white pb-4">Connect your wallet to get started with <span className="text-purple-600 font-bold text-xl">Character Forge</span></p>
             <ConnectButton />
           </div>
