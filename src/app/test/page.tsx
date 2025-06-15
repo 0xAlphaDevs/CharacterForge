@@ -41,7 +41,9 @@ export default function Test() {
   return (
     <>
       test page
+      <br />
       <button onClick={openConnectModal}>Connect Wallet</button>
+      <br />
       <button onClick={registerIp}>Register IP</button>
     </>
   );
