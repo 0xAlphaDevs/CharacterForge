@@ -5,7 +5,6 @@ import { StoryClient, StoryConfig } from "@story-protocol/core-sdk";
 import { useConnectModal } from "@tomo-inc/tomo-evm-kit";
 
 // example of how you would now use the fully setup sdk
-
 export default function Test() {
   const { data: wallet } = useWalletClient();
   const { openConnectModal } = useConnectModal();
@@ -63,6 +62,7 @@ export default function Test() {
     <>
       <br />
       <button onClick={openConnectModal}>Connect Wallet</button>
+
       <br />
       <button onClick={registerIp}>Register IP</button>
       <br />
