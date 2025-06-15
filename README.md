@@ -26,6 +26,7 @@ Anime-style character creation platform with IP registration and Web3 integratio
 
 - Story SDK
 - Tomo EVM kit
+- Replicate
 
 ## App Demo Screenshots
 
