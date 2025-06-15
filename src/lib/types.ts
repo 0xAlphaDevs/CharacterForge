@@ -19,5 +19,5 @@ export interface CharacterData {
   // Generated data
   generatedImage?: string;
   prompt?: string;
-  metadata?: any;
+  metadata?: object;
 }
