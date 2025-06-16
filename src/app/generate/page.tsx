@@ -11,6 +11,7 @@ import { CharacterData } from "@/lib/types";
 import { ConnectButton } from "@tomo-inc/tomo-evm-kit";
 import { useAccount } from "wagmi";
 import Image from "next/image";
+import IPRegistrationStep from "@/components/ip-registration-step";
 
 const steps = [
   { id: 1, title: "Character Info", description: "Basic character details" },
@@ -72,7 +73,9 @@ export default function CharacterForge() {
               <div className="flex items-center justify-between mb-8">
                 <div className="flex items-center gap-2">
                   <Sparkles className="h-6 w-6 text-yellow-400" />
-                  <h1 className="text-2xl font-bold text-white">CharacterForge</h1>
+                  <h1 className="text-2xl font-bold text-white">
+                    CharacterForge
+                  </h1>
                 </div>
                 <div className="flex flex-row items-baseline gap-4">
                   <Badge variant="secondary" className="bg-white/20 text-white">
@@ -88,21 +91,27 @@ export default function CharacterForge() {
                   {steps.map((step) => (
                     <div key={step.id} className="flex items-center">
                       <div
-                        className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium ${currentStep >= step.id
-                          ? "bg-purple-600 text-white"
-                          : "bg-white/20 text-gray-400"
-                          }`}
+                        className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium ${
+                          currentStep >= step.id
+                            ? "bg-purple-600 text-white"
+                            : "bg-white/20 text-gray-400"
+                        }`}
                       >
                         {step.id}
                       </div>
                       <div className="ml-2 hidden sm:block">
                         <p
-                          className={`text-sm font-medium ${currentStep >= step.id ? "text-white" : "text-gray-400"
-                            }`}
+                          className={`text-sm font-medium ${
+                            currentStep >= step.id
+                              ? "text-white"
+                              : "text-gray-400"
+                          }`}
                         >
                           {step.title}
                         </p>
-                        <p className="text-xs text-gray-400">{step.description}</p>
+                        <p className="text-xs text-gray-400">
+                          {step.description}
+                        </p>
                       </div>
                     </div>
                   ))}
@@ -137,6 +146,10 @@ export default function CharacterForge() {
                     onPrev={prevStep}
                   />
                 )}
+
+                {currentStep === 4 && (
+                  <IPRegistrationStep data={characterData} onPrev={prevStep} />
+                )}
               </div>
             </div>
           </div>
@@ -144,14 +157,23 @@ export default function CharacterForge() {
       ) : (
         <div className="min-h-screen bg-black px-4">
           <div className="flex flex-col items-center justify-center h-full text-center pt-48">
-            <Image src="/logo.png" alt="logo" width={150} height={150} className="mb-4" />
-            <p className="text-white pb-4">Connect your wallet to get started with <span className="text-purple-600 font-bold text-xl">Character Forge</span></p>
+            <Image
+              src="/logo.png"
+              alt="logo"
+              width={150}
+              height={150}
+              className="mb-4"
+            />
+            <p className="text-white pb-4">
+              Connect your wallet to get started with{" "}
+              <span className="text-purple-600 font-bold text-xl">
+                Character Forge
+              </span>
+            </p>
             <ConnectButton />
           </div>
         </div>
       )}
-
-
     </>
   );
 }
