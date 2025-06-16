@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
 import { Sparkles } from "lucide-react";
@@ -53,6 +53,13 @@ export default function CharacterForge() {
   };
 
   const progress = (currentStep / 4) * 100;
+
+  // Test to log character data at the final step
+  useEffect(() => {
+    if (currentStep === 4) {
+      console.log("Final Character Data (Step 4):", characterData);
+    }
+  }, [currentStep, characterData]);
 
   // Update the main app background
   return (
