@@ -71,9 +71,6 @@ export default function PoseExpressionStep({
 
     setIsGenerating(true);
 
-    // Simulate AI generation
-    await new Promise((resolve) => setTimeout(resolve, 3000));
-
     // Generate prompt from form data
     const prompt = `${
       data.artStyle
@@ -85,8 +82,11 @@ export default function PoseExpressionStep({
       data.background
     } background`;
 
+    // Simulate AI generation
+    const response = await generateImage(prompt);
+
     onUpdate({
-      generatedImage: "/placeholder.svg?height=512&width=512",
+      generatedImage: response?.imageUrl || "",
       prompt: prompt,
       metadata: {
         name: data.name || "Unnamed Character",
@@ -99,6 +99,27 @@ export default function PoseExpressionStep({
     setIsGenerating(false);
     onNext();
   };
+
+  async function generateImage(
+    prompt: string
+  ): Promise<{ imageUrl: string } | null> {
+    try {
+      const response = await fetch(
+        `/api/generate-image?prompt=${encodeURIComponent(prompt)}`
+      );
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || "Image generation failed");
+      }
+
+      return data;
+    } catch (error) {
+      console.error("Frontend error:", error);
+      alert("Failed to generate image. Try again later.");
+      return null;
+    }
+  }
 
   return (
     <Card className="bg-gray-900 border-gray-800">
