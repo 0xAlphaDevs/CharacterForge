@@ -60,7 +60,7 @@ export default function CharacterInfoStep({
       <CardContent className="space-y-6">
         <div className="space-y-2">
           <Label htmlFor="name" className="text-white">
-            Character Name (Optional)
+            Character Name
           </Label>
           <Input
             id="name"
