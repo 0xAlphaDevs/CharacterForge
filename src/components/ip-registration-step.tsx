@@ -81,7 +81,7 @@ export default function IPRegistrationStep({
 
       // 4. Register the NFT as an IP Asset (only if uploads succeeded)
       const response = await client.ipAsset.mintAndRegisterIp({
-        spgNftContract: "0xc32A8a0FF3beDDDa58393d022aF433e78739FAbc",
+        spgNftContract: "0x19502E44bc8fA0fD310B2B94A7E8B0fF898e8494",
         ipMetadata: {
           ipMetadataURI: `https://ipfs.io/ipfs/${ipIpfsHash}`,
           ipMetadataHash: `0x${ipHash}`,
