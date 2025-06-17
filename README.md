@@ -18,7 +18,7 @@ Anime-style character creation platform with IP registration and Web3 integratio
 
 ## Links
 
-- [Deployed URL]()
+- [Deployed URL](https://characterforge.vercel.app/)
 - [Presentation](https://www.canva.com/design/DAGqawL1arM/zijd3Uk62rgtlH05PlId7w/view)
 - [Demo Video]()
 
@@ -31,6 +31,18 @@ Anime-style character creation platform with IP registration and Web3 integratio
 
 **_Landing Page_**
 ![Landing Page](/public/landing-page.png)
+
+**_Connect with Tomo EVM Kit_**
+![Connect with Tomo EVM Kit](/public/tomo-sdk.png)
+
+**_Design Character_**
+![Design Character](/public/design-character.png)
+
+**_Character Generation_**
+![Character Generation](/public/character-generation.png)
+
+**_IP Registration_**
+![IP Registration](/public/ip-registration.png)
 
 ## Future Vision
 
