@@ -44,6 +44,9 @@ Anime-style character creation platform with IP registration and Web3 integratio
 **_IP Registration_**
 ![IP Registration](/public/ip-registration.png)
 
+**_IP Asset on Story Explorer_**
+![IP Asset on Story Explorer](/public/ip-asset.png)
+
 ## Future Vision
 
 - Marketplace for trading and licensing character IPs
