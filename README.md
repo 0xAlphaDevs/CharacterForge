@@ -20,7 +20,7 @@ Anime-style character creation platform with IP registration and Web3 integratio
 
 - [Deployed URL](https://characterforge.vercel.app/)
 - [Presentation](https://www.canva.com/design/DAGqawL1arM/zijd3Uk62rgtlH05PlId7w/view)
-- [Demo Video]()
+- [Demo Video](https://www.youtube.com/watch?v=SlLUKNWKufA)
 
 ## Sponsers Tech Stack
 
